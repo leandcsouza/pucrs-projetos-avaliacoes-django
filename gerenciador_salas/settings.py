@@ -24,6 +24,13 @@ SECRET_KEY = 'django-insecure-@%6ikd1sr+&5z70b_w5h2o*ye40x*)8srz8mx=4n=ky9v(2i+4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',  # Adicione o endereço do seu aplicativo Vue.js
+]
+ALLOWED_HOSTS = ['localhost']
+
 
 ALLOWED_HOSTS = []
 
@@ -40,7 +47,17 @@ INSTALLED_APPS = [
     'clinicas',
     'salas',
     'reservas',
+    'rest_framework',
+    'corsheaders'
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,7 +67,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'gerenciador_salas.urls'
 
